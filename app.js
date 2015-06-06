@@ -4,6 +4,7 @@ var audioContext = new AudioContext();
 
 var sample = document.querySelector('#sample');
 var sampleBis = document.querySelector('#sampleBis');
+var initBt = document.querySelector('#init');
 var timeIt = document.querySelector('#time');
 var playBt = document.querySelector('#play');
 var sampleMediaElementSource = audioContext.createMediaElementSource(sample);
@@ -36,8 +37,7 @@ timeIt.onclick = function(evt){
     val5.textContent = sampleBis.currentTime-diff;
 };
 
-window.addEventListener('touchstart', function() {
-
+initBt.onclick = function() {
     // create empty buffer
     var buffer = audioContext.createBuffer(1, 1, 22050);
     var source = audioContext.createBufferSource();
@@ -48,8 +48,7 @@ window.addEventListener('touchstart', function() {
 
     // play the file
     source.noteOn(0);
-
-}, false);
+};
 
 
 sample.addEventListener("loadstart", function() {
