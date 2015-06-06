@@ -8,18 +8,23 @@
   <meta name="description" content="The HTML5 Herald">
   <meta name="author" content="SitePoint">
 
-  </head>
+</head>
 
 <body>
+    2 Samples :
+    <ul>
+        <li>
+            1. Sample => Web Audio API
+        </li>
+        <li>
+            2. Sample => HTML5 Media Element
+        </li>
+    </ul>
+    <audio src="vista.wav" id="sample"></audio>
+    <audio src="vista.wav" id="sampleBis"></audio>
+    <br>
 
-    Sample => Web Audio API
-    <br>
-    <audio src="vista.wav" controls id="sample"></audio>
-    <br>
-    Sample => HTML5 Media Element
-    <br>
-    <audio src="vista.wav" controls id="sampleBis"></audio>
-    <br>
+    <button id="play">Play</button>
     <button id="time">Get different times</button>
 
     <table>
@@ -30,6 +35,6 @@
         <tr><td>Diff HTML5 Web Audio API CurrentTime</td><td id="val5"></td></tr>
     </table>
 
-  <script src="app.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
