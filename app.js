@@ -8,12 +8,14 @@ var timeIt = document.querySelector('#time');
 var playBt = document.querySelector('#play');
 var sampleMediaElementSource = audioContext.createMediaElementSource(sample);
 
-
 var val1 = document.querySelector('#val1');
 var val2 = document.querySelector('#val2');
 var val3 = document.querySelector('#val3');
 var val4 = document.querySelector('#val4');
 var val5 = document.querySelector('#val5');
+
+var evt1 = document.querySelector('#evt1');
+var evt2 = document.querySelector('#evt2');
 
 var initTime;
 
@@ -48,5 +50,21 @@ window.addEventListener('touchstart', function() {
     source.noteOn(0);
 
 }, false);
+
+
+sample.addEventListener("loadstart", function() {
+    evt1.textContent = "loadstart";
+}, true);
+sampleBis.addEventListener("loadstart", function() {
+    evt2.textContent = "loadstart";
+}, true);
+sample.addEventListener("loadeddata", function() {
+    evt1.textContent = "loadeddata";
+}, true);
+sampleBis.addEventListener("loadeddata", function() {
+    evt2.textContent = "loadeddata";
+}, true);
+
+
 
 
