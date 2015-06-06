@@ -1,0 +1,35 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Latency</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+
+  </head>
+
+<body>
+
+    Sample => Web Audio API
+    <br>
+    <audio src="vista.wav" controls id="sample"></audio>
+    <br>
+    Sample => HTML5 Media Element
+    <br>
+    <audio src="vista.wav" controls id="sampleBis"></audio>
+    <br>
+    <button id="time">Get different times</button>
+
+    <table>
+        <tr><td>CurrentTime HTML5</td><td id="val1"></td></tr>
+        <tr><td>CurrentTime Web Audio API</td><td id="val2"></td></tr>
+        <tr><td>Diff CurrentTimes audio 'HTML5'</td><td id="val3"></td></tr>
+        <tr><td>Relative Web Audio API CurrentTime</td><td id="val4"></td></tr>
+        <tr><td>Diff HTML5 Web Audio API CurrentTime</td><td id="val5"></td></tr>
+    </table>
+
+  <script src="app.js"></script>
+</body>
+</html>
