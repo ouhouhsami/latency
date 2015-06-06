@@ -47,7 +47,7 @@ initBt.onclick = function() {
     source.connect(audioContext.destination);
 
     // play the file
-    source.noteOn(0);
+    source.start(0);
 };
 
 
