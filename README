@@ -1,0 +1,12 @@
+
+iOS specific pbs
+
+"Currently, all devices running iOS are limited to playback of a single audio or video stream at any time. Playing more than one video—side by side, partly overlapping, or completely overlaid—is not currently supported on iOS devices. Playing multiple simultaneous audio streams is also not supported. You can change the audio or video source dynamically, however. See Replacing a Media Source Sequentially for details."
+
+Safari Desktop : 128 samples
+
+
+Chrome Desktop: 2048+256 samples difference between audio element HTML5 and audio element Web Audio API
+
+
+Firefox: Deviation around 0, 128 samples too.

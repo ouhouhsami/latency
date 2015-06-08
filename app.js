@@ -27,14 +27,14 @@ var moyenne = function() {
         somme += arguments[i];
     }
     return somme / arguments.length;
-}
+};
 
 
 sampleMediaElementSource.connect(audioContext.destination);
 
 playBt.onclick = function(evt){
     initTime = audioContext.currentTime;
-    sample.play();
+    //sample.play();
     sampleBis.play();
 };
 
@@ -52,7 +52,7 @@ timeIt.onclick = function(evt){
     }
     var d = now.getFullYear()+"-"+now.getMonth()+"-"+now.getDate()+" "+now.getHours()+":"+now.getMinutes()+":"+now.getSeconds()+"."+ms;
     data[0].push(d);
-    data[1].push(sampleBis.currentTime-sample.currentTime);
+    data[1].push(sampleBis.currentTime-diff);
     //data[2].push(sample.currentTime);
     //data[3].push(diff);
     getChart(data);
@@ -62,21 +62,22 @@ timeIt.onclick = function(evt){
     val6.textContent = moy;
 };
 
-initBt.onclick = function() {
+var initFunction = function() {
     var buffer = audioContext.createBuffer(1, 1, 22050);
     var source = audioContext.createBufferSource();
     source.buffer = buffer;
     source.connect(audioContext.destination);
     source.start(0);
+    var oscillator = audioContext.createOscillator();
+    oscillator.type = 'sine';
+    oscillator.frequency.value = 50;
+    oscillator.connect(audioContext.destination);
+    oscillator.start();
 };
 
-initBt.addEventListener("touchstart", function() {
-    var buffer = audioContext.createBuffer(1, 1, 22050);
-    var source = audioContext.createBufferSource();
-    source.buffer = buffer;
-    source.connect(audioContext.destination);
-    source.start(0);
-}, false);
+initBt.onclick = initFunction;
+
+initBt.addEventListener("touchstart", initFunction, false);
 
 
 sample.addEventListener("loadstart", function() {
