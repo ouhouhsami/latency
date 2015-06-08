@@ -77,7 +77,7 @@ var initFunction = function() {
 
 initBt.onclick = initFunction;
 
-initBt.addEventListener("touchstart", initFunction, false);
+//initBt.addEventListener("touchstart", initFunction, false);
 
 
 sample.addEventListener("loadstart", function() {
