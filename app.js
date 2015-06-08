@@ -29,7 +29,12 @@ var moyenne = function() {
 
 
 playBt.onclick = function(evt){
+    data = [
+            ['x'],
+            ['diff']
+            ];
     initTime = audioContext.currentTime;
+    sampleBis.currentTime = 0;
     sampleBis.play();
 };
 
