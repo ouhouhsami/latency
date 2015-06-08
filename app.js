@@ -2,12 +2,10 @@ window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
 var audioContext = new AudioContext();
 
-var sample = document.querySelector('#sample');
 var sampleBis = document.querySelector('#sampleBis');
 var initBt = document.querySelector('#init');
 var timeIt = document.querySelector('#time');
 var playBt = document.querySelector('#play');
-var sampleMediaElementSource = audioContext.createMediaElementSource(sample);
 
 var val1 = document.querySelector('#val1');
 var val2 = document.querySelector('#val2');
@@ -30,21 +28,17 @@ var moyenne = function() {
 };
 
 
-sampleMediaElementSource.connect(audioContext.destination);
-
 playBt.onclick = function(evt){
     initTime = audioContext.currentTime;
-    //sample.play();
     sampleBis.play();
 };
 
 timeIt.onclick = function(evt){
     var diff = audioContext.currentTime-initTime;
     val1.textContent = sampleBis.currentTime;
-    val2.textContent = sample.currentTime;
-    val3.textContent = sampleBis.currentTime-sample.currentTime;
     val4.textContent = diff;
-    val5.textContent = sampleBis.currentTime-diff;
+    var currentTimeDiff = sampleBis.currentTime-diff;
+    val5.textContent = currentTimeDiff;
     var now = new Date();
     var ms = now.getMilliseconds();
     if(now.getMilliseconds() < 100){
@@ -52,12 +46,8 @@ timeIt.onclick = function(evt){
     }
     var d = now.getFullYear()+"-"+now.getMonth()+"-"+now.getDate()+" "+now.getHours()+":"+now.getMinutes()+":"+now.getSeconds()+"."+ms;
     data[0].push(d);
-    data[1].push(sampleBis.currentTime-diff);
-    //data[2].push(sample.currentTime);
-    //data[3].push(diff);
+    data[1].push(currentTimeDiff);
     getChart(data);
-    // moyenne
-    //console.log(data[1].slice(1));
     var moy = moyenne.apply(null, data[1].slice(1));
     val6.textContent = moy;
 };
@@ -68,11 +58,6 @@ var initFunction = function() {
     source.buffer = buffer;
     source.connect(audioContext.destination);
     source.start(0);
-    var oscillator = audioContext.createOscillator();
-    oscillator.type = 'sine';
-    oscillator.frequency.value = 50;
-    oscillator.connect(audioContext.destination);
-    oscillator.start(0);
 };
 
 initBt.onclick = initFunction;
@@ -80,15 +65,10 @@ initBt.onclick = initFunction;
 initBt.addEventListener("touchstart", initFunction, false);
 
 
-sample.addEventListener("loadstart", function() {
-    evt1.textContent = "loadstart";
-}, true);
 sampleBis.addEventListener("loadstart", function() {
     evt2.textContent = "loadstart";
 }, true);
-sample.addEventListener("loadeddata", function() {
-    evt1.textContent = "loadeddata";
-}, true);
+
 sampleBis.addEventListener("loadeddata", function() {
     evt2.textContent = "loadeddata";
 }, true);

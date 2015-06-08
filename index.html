@@ -16,17 +16,7 @@
 
 <body>
 
-    2 Samples :
-    <ul>
-        <li>
-            1. Sample => Web Audio API
-        </li>
-        <li>
-            2. Sample => HTML5 Media Element
-        </li>
-    </ul>
-    <audio src="gimme1.mp3" id="sample" auto loop controls></audio>
-    <audio src="gimme2.mp3" id="sampleBis" auto loop controls></audio>
+    <audio src="gimme.mp3" id="sampleBis" auto controls></audio>
     <br>
 
 
@@ -35,8 +25,7 @@
     <button id="time">Get different times</button>
 
     <table>
-        <tr><td>Chargement son 1</td><td id="evt1"></td></tr>
-        <tr><td>Chargement son 2</td><td id="evt2"></td></tr>
+        <tr><td>Chargement son</td><td id="evt2"></td></tr>
         <tr><td>CurrentTime HTML5</td><td id="val1"></td></tr>
         <tr><td>CurrentTime Web Audio API</td><td id="val2"></td></tr>
         <tr><td>Diff CurrentTimes audio 'HTML5'</td><td id="val3"></td></tr>
@@ -73,8 +62,6 @@
         return
     }
     getChart(data);
-    setTimeout(function(){getChart(data); console.log('ooo')}, 1000)
-
 
     </script>
 
