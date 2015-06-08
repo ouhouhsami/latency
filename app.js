@@ -70,6 +70,14 @@ initBt.onclick = function() {
     source.start(0);
 };
 
+initBt.addEventListener("touchstart", function() {
+    var buffer = audioContext.createBuffer(1, 1, 22050);
+    var source = audioContext.createBufferSource();
+    source.buffer = buffer;
+    source.connect(audioContext.destination);
+    source.start(0);
+}, false);
+
 
 sample.addEventListener("loadstart", function() {
     evt1.textContent = "loadstart";
