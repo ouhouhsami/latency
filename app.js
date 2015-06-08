@@ -72,7 +72,7 @@ var initFunction = function() {
     oscillator.type = 'sine';
     oscillator.frequency.value = 50;
     oscillator.connect(audioContext.destination);
-    oscillator.start();
+    oscillator.start(0);
 };
 
 initBt.onclick = initFunction;
