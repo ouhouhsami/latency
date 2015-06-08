@@ -8,9 +8,14 @@
   <meta name="description" content="The HTML5 Herald">
   <meta name="author" content="SitePoint">
 
+  <link href="./vendor/c3-0.4.10/c3.min.css" rel="stylesheet" type="text/css">
+  <script src="./vendor/d3.min.js" charset="utf-8"></script>
+  <script src="./vendor/c3-0.4.10/c3.min.js"></script>
+
 </head>
 
 <body>
+
     2 Samples :
     <ul>
         <li>
@@ -20,8 +25,8 @@
             2. Sample => HTML5 Media Element
         </li>
     </ul>
-    <audio src="vista.wav" id="sample"></audio>
-    <audio src="vista.wav" id="sampleBis"></audio>
+    <audio src="gimme1.mp3" id="sample" auto loop controls></audio>
+    <audio src="gimme2.mp3" id="sampleBis" auto loop controls></audio>
     <br>
 
 
@@ -37,7 +42,42 @@
         <tr><td>Diff CurrentTimes audio 'HTML5'</td><td id="val3"></td></tr>
         <tr><td>Relative Web Audio API CurrentTime</td><td id="val4"></td></tr>
         <tr><td>Diff CurrentTime HTML5 Web vs. Audio API </td><td id="val5"></td></tr>
+        <tr><td>Moyenne </td><td id="val6"></td></tr>
     </table>
+
+    <div id="chart"></div>
+    <script type="text/javascript">
+
+    var data = [
+            ['x'],
+            ['diff']
+            ];
+
+    function getChart(data){
+        var chart = c3.generate({
+            bindto: '#chart',
+            data: {
+                x: 'x',
+                xFormat: '%Y-%m-%d %H:%M:%S.%L',
+                columns: data
+            },
+            axis: {
+                x: {
+                    type: 'timeseries',
+                    tick: {
+                        format: '%Y-%m-%d %H:%M:%S.%L'
+                    }
+                }
+            }
+        });
+        return
+    }
+    getChart(data);
+    setTimeout(function(){getChart(data); console.log('ooo')}, 1000)
+
+
+    </script>
+
 
     <script src="app.js"></script>
 </body>
