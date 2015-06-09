@@ -23,6 +23,18 @@ var initTime;
 
 var data = [['x'], ['Diff CurrentTime HTML5 Web vs. Audio API']];
 
+if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
+
+    document.write('<a id="init" ontouchstart="javascript:sndInit();"></a>');
+
+    function sndInit(){
+        sampleBis.play();
+        sampleBis.pause();
+        document.getElementById('init').style.display = 'none';
+    };
+};
+
+
 function getChart(data){
     var chart = c3.generate({
         bindto: '#chart',
