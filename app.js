@@ -6,26 +6,46 @@ var sampleBis = document.querySelector('#sampleBis');
 var initBt = document.querySelector('#init');
 var timeIt = document.querySelector('#time');
 var playBt = document.querySelector('#play');
+var stopBt = document.querySelector('#stop');
+var collectBt = document.querySelector('#collect');
 
 var val1 = document.querySelector('#val1');
 var val2 = document.querySelector('#val2');
-var val3 = document.querySelector('#val3');
 var val4 = document.querySelector('#val4');
 var val5 = document.querySelector('#val5');
 var val6 = document.querySelector('#val6');
+var val7 = document.querySelector('#val7');
 
 var evt1 = document.querySelector('#evt1');
 var evt2 = document.querySelector('#evt2');
 
 var initTime;
 
-var moyenne = function() {
-    var somme = 0;
-    for (var i = 0, j = arguments.length; i < j; i++) {
-        somme += arguments[i];
-    }
-    return somme / arguments.length;
-};
+var data = [['x'], ['Diff CurrentTime HTML5 Web vs. Audio API']];
+
+function getChart(data){
+    var chart = c3.generate({
+        bindto: '#chart',
+        data: {
+            x: 'x',
+            xFormat: '%Y-%m-%d %H:%M:%S.%L',
+            columns: data
+        },
+        axis: {
+            x: {
+                type: 'timeseries',
+                tick: {
+                    format: '%Y-%m-%d %H:%M:%S.%L'
+                }
+            }
+        }
+    });
+    return;
+}
+getChart(data);
+
+
+val2.textContent = audioContext.currentTime;
 
 
 playBt.onclick = function(evt){
@@ -38,9 +58,14 @@ playBt.onclick = function(evt){
     sampleBis.play();
 };
 
+stopBt.onclick = function(evt){
+    sampleBis.pause();
+};
+
 timeIt.onclick = function(evt){
     var diff = audioContext.currentTime-initTime;
     val1.textContent = sampleBis.currentTime;
+    val2.textContent = audioContext.currentTime;
     val4.textContent = diff;
     var currentTimeDiff = sampleBis.currentTime-diff;
     val5.textContent = currentTimeDiff;
@@ -53,8 +78,20 @@ timeIt.onclick = function(evt){
     data[0].push(d);
     data[1].push(currentTimeDiff);
     getChart(data);
-    var moy = moyenne.apply(null, data[1].slice(1));
-    val6.textContent = moy;
+    val6.textContent = average(data[1].slice(1));
+    val7.textContent = standardDeviation(data[1].slice(1));
+};
+
+
+var collId;
+
+collectBt.onchange = function(evt){
+    console.log(evt.target.checked);
+    if(evt.target.checked){
+        collId = setInterval(timeIt.onclick, 500);
+    }else{
+        clearInterval(collId);
+    }
 };
 
 var initFunction = function() {
@@ -63,6 +100,7 @@ var initFunction = function() {
     source.buffer = buffer;
     source.connect(audioContext.destination);
     source.start(0);
+    val2.textContent = audioContext.currentTime;
 };
 
 initBt.onclick = initFunction;

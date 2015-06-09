@@ -3,69 +3,56 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Latency</title>
-  <meta name="description" content="The HTML5 Herald">
-  <meta name="author" content="SitePoint">
-
+  <title>Device Latency</title>
   <link href="./vendor/c3-0.4.10/c3.min.css" rel="stylesheet" type="text/css">
+  <style>
+  html {
+    font-family: Arial;
+  }
+  button {
+    height: 50px;
+    width: 250px
+  }
+  label {
+    font-size: 1.5em;
+  }
+  </style>
   <script src="./vendor/d3.min.js" charset="utf-8"></script>
   <script src="./vendor/c3-0.4.10/c3.min.js"></script>
+  <script src="./math.js"></script>
 
 </head>
 
 <body>
 
-    <audio src="gimme.mp3" id="sampleBis" auto controls></audio>
+    <h1>Device Latency</h1>
+
+    <button id="init">Init AudioContext on iOS</button>
     <br>
+    <audio src="gimme.mp3" id="sampleBis" auto></audio>
 
 
-    <button id="init">Init f***** iOS</button>
+
     <button id="play">Play</button>
-    <button id="time">Get different times</button>
-
+    <br>
+    <button id="stop">Stop</button>
+    <br>
+    <button id="time">Collect currentTimes</button>
+    <br>
+    <label><input type="checkbox" id="collect">Launch collect</label>
     <table>
-        <tr><td>Chargement son</td><td id="evt2"></td></tr>
-        <tr><td>CurrentTime HTML5</td><td id="val1"></td></tr>
-        <tr><td>CurrentTime Web Audio API</td><td id="val2"></td></tr>
-        <tr><td>Diff CurrentTimes audio 'HTML5'</td><td id="val3"></td></tr>
-        <tr><td>Relative Web Audio API CurrentTime</td><td id="val4"></td></tr>
-        <tr><td>Diff CurrentTime HTML5 Web vs. Audio API </td><td id="val5"></td></tr>
-        <tr><td>Moyenne </td><td id="val6"></td></tr>
+        <tr><td>HTML5 audio data</td><td id="evt2"></td></tr>
+        <tr><td>currentTime Web Audio API</td><td id="val2"></td></tr>
+        <tr><td>currentTime HTML5</td><td id="val1">None</td></tr>
+        <tr><td>currentTime Web Audio API Relative</td><td id="val4">None</td></tr>
+        <tr><td>Diff CurrentTime HTML5 Web vs. Audio API</td><td id="val5">None</td></tr>
+        <tr><td>Average</td><td id="val6"></td></tr>
+        <tr><td>Standard deviation</td><td id="val7"></td></tr>
     </table>
 
     <div id="chart"></div>
-    <script type="text/javascript">
-
-    var data = [
-            ['x'],
-            ['diff']
-            ];
-
-    function getChart(data){
-        var chart = c3.generate({
-            bindto: '#chart',
-            data: {
-                x: 'x',
-                xFormat: '%Y-%m-%d %H:%M:%S.%L',
-                columns: data
-            },
-            axis: {
-                x: {
-                    type: 'timeseries',
-                    tick: {
-                        format: '%Y-%m-%d %H:%M:%S.%L'
-                    }
-                }
-            }
-        });
-        return
-    }
-    getChart(data);
-
-    </script>
-
-
     <script src="app.js"></script>
 </body>
 </html>
