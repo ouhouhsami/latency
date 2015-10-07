@@ -3,6 +3,12 @@ window.AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioContext = new AudioContext();
 
 var sampleBis = document.querySelector('#sampleBis');
+var sampleTer = document.querySelector('#sampleTer');
+
+var sampleTerUrl = './60_Clicks_R.wav';
+var sampleTerBuffer;
+var sampleTerBufferSource;
+
 var initBt = document.querySelector('#init');
 var timeIt = document.querySelector('#time');
 var playBt = document.querySelector('#play');
@@ -33,6 +39,35 @@ if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)
         document.getElementById('init').style.display = 'none';
     };
 };
+
+
+function loadBuffer(url) {
+    var request = new XMLHttpRequest();
+
+    request.open('GET', url);
+    request.responseType = 'arraybuffer';
+
+    request.onerror = function() {
+        alert('Failed to load ' + url + ': ' + request.status + ' ' + request.statusText);
+    };
+
+    request.onload = function() {
+        if (request.status >= 400) {
+            request.onerror();
+            return;
+        }
+
+        audioContext.decodeAudioData(request.response, function(loaded) {
+            sampleTerBuffer = loaded;
+            console.log(loaded);
+        }, function() {
+            alert('Failed to decode audio file ' + url);
+        });
+    };
+
+    request.send();
+
+}
 
 
 function getChart(data){
@@ -68,10 +103,15 @@ playBt.onclick = function(evt){
     initTime = audioContext.currentTime;
     sampleBis.currentTime = 0;
     sampleBis.play();
+    sampleTerBufferSource = audioContext.createBufferSource();
+    sampleTerBufferSource.buffer = sampleTerBuffer;
+    sampleTerBufferSource.connect(audioContext.destination);
+    sampleTerBufferSource.start(0);
 };
 
 stopBt.onclick = function(evt){
     sampleBis.pause();
+    sampleTerBufferSource.stop(0);
 };
 
 timeIt.onclick = function(evt){
@@ -80,7 +120,7 @@ timeIt.onclick = function(evt){
     val2.textContent = audioContext.currentTime;
     val4.textContent = diff;
     var currentTimeDiff = sampleBis.currentTime-diff;
-    val5.textContent = currentTimeDiff;
+    val5.textContent = '' + currentTimeDiff + ' (' + (currentTimeDiff * audioContext.sampleRate) + ')';
     var now = new Date();
     var ms = now.getMilliseconds();
     if(now.getMilliseconds() < 100){
@@ -90,8 +130,10 @@ timeIt.onclick = function(evt){
     data[0].push(d);
     data[1].push(currentTimeDiff);
     getChart(data);
-    val6.textContent = average(data[1].slice(1));
-    val7.textContent = standardDeviation(data[1].slice(1));
+    var avg = average(data[1].slice(1));
+    val6.textContent = '' + avg + ' (' + (avg * audioContext.sampleRate) + ')';
+    var stdev = standardDeviation(data[1].slice(1));
+    val7.textContent = '' + stdev + ' (' + (stdev * audioContext.sampleRate) + ')';
 };
 
 
@@ -113,6 +155,9 @@ var initFunction = function() {
     source.connect(audioContext.destination);
     source.start(0);
     val2.textContent = audioContext.currentTime;
+
+    console.log('init');
+    loadBuffer(sampleTerUrl);
 };
 
 initBt.onclick = initFunction;
